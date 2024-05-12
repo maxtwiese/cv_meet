@@ -60,6 +60,7 @@ const MembersTableBody = () => {
               {user.is_active ? "Active" : "Inactive"}
             </Flex>
           </Td>
+          <Td> you are here</Td>
           <Td>
             <ActionsMenu
               type="User"
@@ -67,6 +68,7 @@ const MembersTableBody = () => {
               disabled={currentUser?.id === user.id ? true : false}
             />
           </Td>
+          
         </Tr>
       ))}
     </Tbody>
@@ -102,6 +104,7 @@ function Admin() {
               <Th width="50%">Email</Th>
               <Th width="10%">Role</Th>
               <Th width="10%">Status</Th>
+              <Th width="10%">Location</Th>
               <Th width="10%">Actions</Th>
             </Tr>
           </Thead>
