@@ -33,48 +33,9 @@ const MembersTableBody = () => {
     queryKey: ["users"],
     queryFn: () => UsersService.readUsers({}),
   })
-  //function for adding location
-
-  //prioritize the location from the library we use to pull location then ask, "is this right?"
-  interface UserData {
-    data?: {
-        location?: {
-            date?: Date;
-        };
-    };
-}
-
-const checkStaleLocation = (user: UserData): string => {
-    const currDate: Date = new Date();
-    const currTime: number = currDate.getTime();
-    // will return current time 
-    const userDate: Date | undefined = user.data?.location?.date;
-    const userTime: number | undefined = userDate?.getTime();
-    // const time = user.data.location (get maybe from location) should have a time and if the time older than 5 hours: 1,800,000ms
-    const locationColor = {
-        curr: "green",
-        old: "red",
-    };
-
-    if (userTime === undefined) {
-        // Handle the case where user data or user's location date is undefined
-        return locationColor.curr;
-    }
-
-    const timeDiff: number = currTime - userTime;
-
-    if (timeDiff > 1800000) {
-        return locationColor.old;
-    }
-
-    return locationColor.curr;
-};
-
-  
 
   return (
     <Tbody>
-      {/* mapping over users.data Array */}
       {users.data.map((user) => (
         <Tr key={user.id}>
           <Td color={!user.full_name ? "ui.dim" : "inherit"}>
@@ -105,11 +66,6 @@ const checkStaleLocation = (user: UserData): string => {
               value={user}
               disabled={currentUser?.id === user.id ? true : false}
             />
-          </Td>
-          <Td>
-            {user.data?.location}
-            <Badge ml="1" colorScheme={checkStaleLocation(user)}>
-            </Badge>
           </Td>
         </Tr>
       ))}
